@@ -27,7 +27,7 @@ class App extends Component {
     let corrDate = moment(this.state.dateCorr).format("MM-DD-YYYY");
     let due = 
       moment(this.state.type === 'rcvd' ? this.state.dateRcvd : this.state.dateCorr)
-      .add(+this.state.days, 'days')
+      .add(+this.state.days - 1, 'days')
       .format('MM-DD-YYYY')
 
     this.setState({
