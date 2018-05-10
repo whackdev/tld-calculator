@@ -15,7 +15,7 @@ class App extends Component {
     days: null,
     excess: false,
     limits: null,
-    type: 'corr'
+    tldType: 'corr'
   }
 
   getDueDate = (start, interval) => {
@@ -26,7 +26,7 @@ class App extends Component {
     let rcvdDate = moment(this.state.dateRcvd).format("MM-DD-YYYY");
     let corrDate = moment(this.state.dateCorr).format("MM-DD-YYYY");
     let due = 
-      moment(this.state.type === 'rcvd' ? this.state.dateRcvd : this.state.dateCorr)
+      moment(this.state.tldType === 'rcvd' ? this.state.dateRcvd : this.state.dateCorr)
       .add(+this.state.days - 1, 'days')
       .format('MM-DD-YYYY')
 
@@ -43,7 +43,7 @@ class App extends Component {
 
     this.handleDates();
 
-    if (+this.state.amount > +this.state.limits) {
+    if (+this.state.amount >= +this.state.limits) {
       this.setState({ excess: true });
     }
 
@@ -51,20 +51,7 @@ class App extends Component {
   }
 
   formChangeHandler = (event) => {
-    let key = event.target.name;
-    let value = event.target.value;
-
-    if (event.target.name === 'rcvdType') {
-      key = 'type';
-      value = 'rcvd';
-    }
-    else if (event.target.name === 'corrType') {
-      key = 'type';
-      value = 'corr';
-    }
-    else {
-      this.setState({ [key]: value });
-    }
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   
@@ -87,9 +74,30 @@ class App extends Component {
             <div className="form-group">
             <form onSubmit={this.formSubmitHandler}>
               <div style={{ marginBottom: '5px' }}>
-                <label><input type="radio"  name="corrType" onChange={this.formChangeHandler}/>Due XX days from Date on Letter</label>
-                <label><input type="radio"  name="rcvdType" onChange={this.formChangeHandler}/>Due XX days from Date of Receipt</label>
-                <label><input type="radio"  name="corrType" onChange={this.formChangeHandler}/>Due XX days, start Date Unspecified</label> 
+                <label>
+                  <input
+                    type="radio"
+                    name="tldType"
+                    onChange={this.formChangeHandler}
+                    value="corr"
+                  />Due XX days from Date on Letter
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="tldType"
+                    value="rcvd"
+                    onChange={this.formChangeHandler}
+                  />Due XX days from Date of Receipt
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="tldType"
+                    value='rcvd'
+                    onChange={this.formChangeHandler}
+                  />Due XX days, start Date Unspecified
+                </label> 
               </div>
               <div>
                 <label htmlFor="dateRcvd">Date Recieved: </label>
