@@ -9,12 +9,15 @@ class App extends Component {
     generated: false,
     amount: null,
     conditions: false,
+    corrChecked: true,
     dateCorr: null,
     dateDue: null,
     dateRcvd: null,
     days: null,
     excess: false,
     limits: null,
+    otherChecked: false,
+    rcvdChecked: false,
     tldType: 'corr'
   }
 
@@ -51,7 +54,41 @@ class App extends Component {
   }
 
   formChangeHandler = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+    let key = event.target.name;
+    let value = event.target.value;
+
+    if (key === 'tldType') {
+
+      if (value === 'other') {
+        value = 'corr';
+
+        this.setState({
+          otherChecked: true,
+          rcvdChecked: false,
+          corrChecked: false,
+          [key]:value
+        });
+      }
+      else if (value === 'rcvd') {
+        this.setState({
+          otherChecked: false,
+          rcvdChecked: true,
+          corrChecked: false,
+          [key]:value
+        });
+      }
+      else{
+        this.setState({
+          otherChecked: false,
+          rcvdChecked: true,
+          corrChecked: false,
+          [key]:value
+        });
+      }
+    }
+    else {
+      this.setState({ [key]: value });
+    }  
   }
 
   
@@ -80,6 +117,7 @@ class App extends Component {
                     name="tldType"
                     onChange={this.formChangeHandler}
                     value="corr"
+                    checked={this.state.corrChecked}
                   />Due XX days from Date on Letter
                 </label>
                 <label>
@@ -88,14 +126,16 @@ class App extends Component {
                     name="tldType"
                     value="rcvd"
                     onChange={this.formChangeHandler}
+                    checked={this.state.rcvdChecked}
                   />Due XX days from Date of Receipt
                 </label>
                 <label>
                   <input
                     type="radio"
                     name="tldType"
-                    value='rcvd'
+                    value='other'
                     onChange={this.formChangeHandler}
+                    checked={this.state.otherChecked}
                   />Due XX days, start Date Unspecified
                 </label> 
               </div>
