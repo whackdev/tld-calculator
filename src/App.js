@@ -146,11 +146,11 @@ class App extends Component {
               </div>
               <div>
                 <label htmlFor="dateRcvd">Date Recieved: </label>
-                <input type="date" name="dateRcvd" value={(this.state.dateRcvd) ? this.state.dateRcvd : ''} onChange={this.formChangeHandler} placeholder="MM-DD-YYY"/>
+                <input type="date" name="dateRcvd" value={(this.state.dateRcvd) ? this.state.dateRcvd : ''} onChange={this.formChangeHandler} placeholder="MM-DD-YYYY"/>
               </div>
               <div>
                 <label htmlFor="dateCorr">Correspodence Date: </label>
-                <input type="date" name="dateCorr" value={(this.state.dateCorr) ? this.state.dateCorr : ''} onChange={this.formChangeHandler}  placeholder="MM-DD-YYY"/>
+                <input type="date" name="dateCorr" value={(this.state.dateCorr) ? this.state.dateCorr : ''} onChange={this.formChangeHandler}  placeholder="MM-DD-YYYY"/>
               </div>
               <div>
                 <label htmlFor="days">Days Allowed: </label>
