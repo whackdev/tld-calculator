@@ -13,6 +13,7 @@ class App extends Component {
     dateCorr: null,
     dateDue: null,
     dateRcvd: null,
+    dateSugg: null,
     days: null,
     excess: false,
     limits: null,
@@ -30,13 +31,17 @@ class App extends Component {
     let corrDate = moment(this.state.dateCorr).format("MM-DD-YYYY");
     let due = 
       moment(this.state.tldType === 'rcvd' ? this.state.dateRcvd : this.state.dateCorr)
-      .add(+this.state.days - 1, 'days')
-      .format('MM-DD-YYYY')
-
+      .add(+this.state.days, 'days')
+      .format('MM-DD-YYYY');
+    let suggested = 
+      moment(this.state.tldType === 'rcvd' ? this.state.dateRcvd : this.state.dateCorr)
+        .add(+this.state.days - 2, 'days')
+        .format('MM-DD-YYYY');
     this.setState({
       dateRcvd: rcvdDate,
       dateCorr: corrDate,
-      dateDue: due
+      dateDue: due,
+      dateSugg: suggested
     });
   }
 
@@ -141,11 +146,11 @@ class App extends Component {
               </div>
               <div>
                 <label htmlFor="dateRcvd">Date Recieved: </label>
-                <input type="date" name="dateRcvd" value={(this.state.dateRcvd) ? this.state.dateRcvd : ''} onChange={this.formChangeHandler} />
+                <input type="date" name="dateRcvd" value={(this.state.dateRcvd) ? this.state.dateRcvd : ''} onChange={this.formChangeHandler} placeholder="MM-DD-YYY"/>
               </div>
               <div>
                 <label htmlFor="dateCorr">Correspodence Date: </label>
-                <input type="date" name="dateCorr" value={(this.state.dateCorr) ? this.state.dateCorr : ''} onChange={this.formChangeHandler} />
+                <input type="date" name="dateCorr" value={(this.state.dateCorr) ? this.state.dateCorr : ''} onChange={this.formChangeHandler}  placeholder="MM-DD-YYY"/>
               </div>
               <div>
                 <label htmlFor="days">Days Allowed: </label>
@@ -180,6 +185,7 @@ class App extends Component {
           <div>
               <p className="task">TLD Demand Date: { this.state.dateCorr }</p>
               <p className="task">TLD Received: { this.state.dateRcvd }</p>
+              <p className="task">Suggested Completion Date: { this.state.dateSugg }</p>
               <p className="task">TLD Due Date: { this.state.dateDue }</p>
               <p className="task">TLD Amount: { formattedAmt }</p>
               <p className="task">Policy Limits: { formattedLimits }</p>
