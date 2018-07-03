@@ -31,11 +31,11 @@ class App extends Component {
     let corrDate = moment(this.state.dateCorr).format("MM-DD-YYYY");
     let due = 
       moment(this.state.tldType === 'rcvd' ? this.state.dateRcvd : this.state.dateCorr)
-      .add(+this.state.days, 'days')
+      .add(+this.state.days - 1, 'days')
       .format('MM-DD-YYYY');
     let suggested = 
       moment(this.state.tldType === 'rcvd' ? this.state.dateRcvd : this.state.dateCorr)
-        .add(+this.state.days - 2, 'days')
+        .add(+this.state.days - 3, 'days')
         .format('MM-DD-YYYY');
     this.setState({
       dateRcvd: rcvdDate,
