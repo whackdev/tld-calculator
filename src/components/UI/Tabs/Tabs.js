@@ -46,3 +46,5 @@ class Tabs extends React.Component {
 Tabs.propTypes = {
   children: PropTypes.instanceOf(Array).isRequired
 };
+
+export default Tabs;

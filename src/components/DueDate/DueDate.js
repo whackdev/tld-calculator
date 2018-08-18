@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/Styles.css';
+import Task from './Task/Task';
 
 var moment = require('moment');
 
@@ -111,10 +112,11 @@ class DueDate extends Component {
       ? formatter.format(this.state.limits)
       : null;
     return (
-      <div className="App">
+      <React.Fragment>
         {this.state.generated === false ? (
           <React.Fragment>
-            <h2>TLD Task Tracker Generator</h2>
+            <h3>TLD Task Tracker Generator</h3>
+            <p>Calculate TLD due date</p>
             <div className="form-group">
               <form onSubmit={this.formSubmitHandler}>
                 <div style={{ marginBottom: '5px' }}>
@@ -219,35 +221,18 @@ class DueDate extends Component {
             </div>
           </React.Fragment>
         ) : (
-          <React.Fragment>
-            <div>
-              <h2>TLD Task Note</h2>
-              <p>(Copy & paste below into Outlook Task Report)</p>
-            </div>
-
-            <div>
-              <p className="task">TLD Demand Date: {this.state.dateCorr}</p>
-              <p className="task">TLD Received: {this.state.dateRcvd}</p>
-              <p className="task">
-                Suggested Completion Date: {this.state.dateSugg}
-              </p>
-              <p className="task">TLD Due Date: {this.state.dateDue}</p>
-              <p className="task">TLD Amount: {formattedAmt}</p>
-              <p className="task">Policy Limits: {formattedLimits}</p>
-              <p className="task">Excess: {this.state.excess ? 'Yes' : 'No'}</p>
-              <p className="task">
-                {this.state.excess ? 'Insured notified: mm/dd/yyyy' : null}
-              </p>
-              <p className="task">
-                {this.state.excess ? 'Excess Letter Sent : mm/dd/yyyy' : null}
-              </p>
-              <p className="task">
-                TLD Conditions: {this.state.conditions ? 'Yes' : 'No'}
-              </p>
-            </div>
-          </React.Fragment>
+          <Task
+            conditions={this.state.conditions}
+            dateCorr={this.state.dateCorr}
+            dateDue={this.state.dateRcvd}
+            dateRcvd={this.state.dateRcvd}
+            dateSugg={this.state.dateSugg}
+            excess={this.state.excess}
+            formattedAmt={formattedAmt}
+            formattedLimits={formattedLimits}
+          />
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }
