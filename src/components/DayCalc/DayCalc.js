@@ -1,10 +1,10 @@
 import React from 'react';
+import DayCalcHeader from './DayCalcHeader';
 
-const DayCalc = () => (
-  <React.Fragment>
-    <h3>Day Calculator</h3>
-    <p>Calculate number of days between two dates ("MM-DD-YYYY")</p>
-  </React.Fragment>
-);
+class DayCalc extends React.Component {
+  render() {
+    <DayCalcHeader />;
+  }
+}
 
 export default DayCalc;
