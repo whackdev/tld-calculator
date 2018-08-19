@@ -1,16 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-testing-library';
 import Tab from '../Tab';
 
+const props = {
+  activeTab: '',
+  label: 'test',
+  onClick: () => console.log('Tab clicked')
+};
+
 describe('TLD Calculater', () => {
-  it('renders without crashing', () => {
-    const props = {
-      activeTab: '',
-      label: 'test',
-      onClick: () => console.log('Tab clicked')
-    };
-    const div = document.createElement('div');
-    ReactDOM.render(<Tab {...props} />, div);
-    ReactDOM.unmountComponentAtNode(div);
+  it('should render the tab with `props`', () => {
+    const { queryByText } = render(<Tab {...props} />);
+    const tabNode = queryByText(props.label);
+    expect(tabNode.innerHTML).toBe(props.label);
   });
 });
